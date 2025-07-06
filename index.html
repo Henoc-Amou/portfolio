@@ -7,9 +7,7 @@
   <meta name="keywords" content="Développeur Web, Portfolio, Amou Hénoc, React, Laravel, JavaScript, WordPress, Tailwinds CSS">
   <meta name="author" content="Amou Hénoc">
   <link rel="icon" href="images/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <title>Amou Hénoc | Développeur Web</title>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -174,9 +172,10 @@
       }
     }
   </style>
+  
 </head>
+<body class="container bg-background text-text mt-0 sm:mt-[-250] md:mt-[-350] lg:mt-[-600] xl:mt[-400] 2xl:mt-[-200]"> 
 
-<body class="container bg-background text-text">
   <nav class="navbar fixed top-0 left-0 right-0 z-50 bg-background">
     <div class="navbar-content container mx-auto px-4">
       <div class="flex items-center space-x-4">
@@ -540,7 +539,7 @@
     });
 
     const dynamicText = document.getElementById('dynamicText');
-    const phrases = ['Développeur Web', 'En fin de formation'];
+    const phrases = ['Développeur Web', 'En Freelance'];
     let currentPhrase = 0;
 
     function typeWriter(text, i, fnCallback) {
