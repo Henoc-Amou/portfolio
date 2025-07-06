@@ -1,0 +1,583 @@
+<html>
+
+<head>
+  <title>Amou Hénoc | Développeur Web</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --primary-color: #00abf0;
+      --secondary-color: #64ffda;
+      --background-color: #0a192f;
+      --card-background: #112240;
+      --text-color: #8892b0;
+      --heading-color: #ccd6f6;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    body.light-mode {
+      --primary-color: #0077b6;
+      --secondary-color: #0096c7;
+      --background-color: #f0f4f8;
+      --card-background: #ffffff;
+      --text-color: #4a5568;
+      --heading-color: #2d3748;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .bg-background {
+      background-color: var(--background-color);
+    }
+
+    .bg-card {
+      background-color: var(--card-background);
+    }
+
+    .text-heading {
+      color: var(--heading-color);
+    }
+
+    .text-primary {
+      color: var(--primary-color);
+    }
+
+    .border-primary {
+      border-color: var(--primary-color);
+    }
+
+    .text-gradient {
+      background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .skill-icon,
+    .project-card {
+      transition: all 0.3s ease;
+    }
+
+    .skill-icon:hover,
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 171, 240, 0.2);
+    }
+
+    .hover-trigger:hover {
+      color: var(--primary-color);
+    }
+
+    .navbar a.active {
+      color: #00abf0;
+      border-bottom: 2px solid white;
+      text-decoration: unset;
+    }
+
+
+
+    .navbar {
+      color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(10, 25, 47, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .navbar-hidden {
+      transform: translateY(-100%);
+    }
+
+    .navbar-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+    }
+
+    .nav-link {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -1px;
+      left: 0;
+      background-color: var(--primary-color);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .animate-on-scroll.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+
+      }
+
+      .navbar-content {
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      h2 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body class="container bg-background text-text">
+  <nav class="navbar">
+    <div class="navbar-content container mx-auto">
+      <div class="flex items-center space-x-4">
+        <div class="w-12 h-12 rounded-full overflow-hidden shadow-lg shadow-primary/50">
+          <img src="file:///C:/Users/HP/OneDrive/Music/ALL%20PROJETS/MON%20PORTFOLIO/home.jpg"
+            alt="A stylized avatar of a smiling man with short dark hair and glasses"
+            class="w-full h-full object-cover">
+        </div>
+        <div class="text-headingx text-xl font-semibold hover-trigger">Amou Hénoc</div>
+      </div>
+      <nav class="hidden md:flex space-x-6">
+
+        <a href="#home" class="active text-text hover:text-primary transition duration-300">Accueil</a>
+        <a href="#about" class="nav-link text-text hover:text-primary transition duration-300">À propos</a>
+        <a href="#skills" class="nav-link text-text hover:text-primary transition duration-300">Compétences</a>
+        <a href="#services" class="nav-link text-text hover:text-primary transition duration-300">Services</a>
+        <a href="#projects" class="nav-link text-text hover:text-primary transition duration-300">Projets</a>
+        <a href="#contact" class="nav-link text-text hover:text-primary transition duration-300">Contact</a>
+      </nav>
+      <div class="flex items-center space-x-4">
+        <button id="themeToggle" class="text-text hover:text-primary transition duration-300 hover-trigger">
+          <i class="fas fa-sun"></i>
+        </button>
+        <button class="md:hidden text-text hover:text-primary transition duration-300 hover-trigger"
+          onclick="toggleMenu()">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <nav id="mobileMenu" class="hidden md:hidden bg-background w-full absolute left-0 top-24 z-50 p-4 space-y-4">
+    <a href="#home" class="active block text-text hover:text-primary transition duration-300 hover-trigger">Accueil</a>
+    <a href="#about" class="block text-text hover:text-primary transition duration-300 hover-trigger">À propos</a>
+    <a href="#skills" class="block text-text hover:text-primary transition duration-300 hover-trigger">Compétences</a>
+    <a href="#services" class="block text-text hover:text-primary transition duration-300 hover-trigger">Services</a>
+    <a href="#projects" class="block text-text hover:text-primary transition duration-300 hover-trigger">Projets</a>
+    <a href="#contact" class="block text-text hover:text-primary transition duration-300 hover-trigger">Contact</a>
+  </nav>
+
+  <div class="container mx-auto px-4 py-8 mt-24">
+    <section id="home" class="min-h-screen flex flex-col justify-center">
+      <div class="max-w-2xl animate-on-scroll">
+        <h1 class="text-5xl md:text-4xl text-heading mb-4 font-bold">Salut, je m'appelle <span
+            class="text-gradient">Amou Hénoc</span></h1>
+        <div class="relative">
+          <h3 class="text-3xl md:text-4xl mb-4 text-gradient font-bold" id="dynamicText">Développeur Web</h3>
+        </div>
+        <p class="text-lg mb-8">Je suis un Développeur web en fin de formation avec une passion pour créer des
+          expériences web
+          exceptionnelles. Mon objectif est de repousser les limites du design et de la fonctionnalité pour offrir des
+          solutions web uniques et performantes.</p>
+        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+          <a href="#about"
+            class="border-2 border-primary bg-primary text-background px-8 py-3 rounded-full font-semibold hover:bg-opacity-90 transition duration-300 text-center shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover-trigger">En
+            savoir +</a>
+          <a href="#contact"
+            class="border-2 border-primary text-primary px-8 py-3 rounded-full font-semibold hover:bg-primary hover:text-background transition duration-300 text-center shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover-trigger">Me
+            contacter</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="py-16">
+      <h2 class="text-4xl text-heading mb-8 font-bold text-center animate-on-scroll">À propos de moi</h2>
+      <div class="flex flex-col md:flex-row items-center justify-between">
+        <div class="md:w-1/2 mb-8 md:mb-0 animate-on-scroll">
+          <p class="mb-4">Passionné par le développement web, j'ai transformé cette passion en
+            une carrière florissante. Avec plus de 11 mois d'expérience pratique dans le domaine, j'ai eu l'opportunité
+            de travailler sur une variété de projets passionnants, allant des sites vitrines aux applications web
+            complexes.</p>
+          <p class="mb-4">Ma philosophie de travail repose sur trois piliers fondamentaux :</p>
+          <ul class="list-disc list-inside mb-4">
+            <li>L'innovation constante</li>
+            <li>L'attention méticuleuse aux détails</li>
+            <li>La satisfaction client</li>
+          </ul>
+          <p>Je suis toujours à l'affût des dernières tendances et technologies pour offrir des solutions web modernes
+            et performantes.</p>
+        </div>
+        <div class="md:w-1/2 md:pl-8 animate-on-scroll hidden md:block">
+          <!-- Cette div peut rester vide ou être supprimée -->
+        </div>
+      </div>
+    </section>
+
+
+
+    <section id="skills" class="py-16">
+      <h2 class="text-4xl text-heading mb-12 font-bold text-center animate-on-scroll">Mes compétences</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
+        <div class="skill-item flex flex-col items-center hover-trigger animate-on-scroll">
+          <div class="skill-icon w-20 h-20 bg-card rounded-full flex items-center justify-center mb-4">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+              alt=Javascript icon" class="w-12 h-12" />
+          </div>
+          <div class="text-heading text-lg mb-1 font-semibold">Javascript</div>
+        </div>
+        <div class="skill-item flex flex-col items-center hover-trigger animate-on-scroll">
+          <div class="skill-icon w-20 h-20 bg-card rounded-full flex items-center justify-center mb-4">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-original.svg"
+              alt="WordPress icon" class="w-12 h-12" />
+          </div>
+          <div class="text-heading text-lg mb-1 font-semibold">WordPress</div>
+        </div>
+        <div class="skill-item flex flex-col items-center hover-trigger animate-on-scroll">
+          <div class="skill-icon w-20 h-20 bg-card rounded-full flex items-center justify-center mb-4">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="tailwindcss icon"
+              class="w-12 h-12" />
+          </div>
+          <div class="text-heading text-lg mb-1 font-semibold">Tailwinds CSS</div>
+        </div>
+        <div class="skill-item flex flex-col items-center hover-trigger animate-on-scroll">
+          <div class="skill-icon w-20 h-20 bg-card rounded-full flex items-center justify-center mb-4">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React icon"
+              class="w-12 h-12" />
+          </div>
+          <div class="text-heading text-lg mb-1 font-semibold">React</div>
+        </div>
+        <div class="skill-item flex flex-col items-center hover-trigger animate-on-scroll">
+          <div class="skill-icon w-20 h-20 bg-card rounded-full flex items-center justify-center mb-4">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg"
+              alt="Laravel icon" class="w-12 h-12" />
+          </div>
+          <div class="text-heading text-lg mb-1 font-semibold">Laravel</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="py-16">
+      <h2 class="text-4xl text-heading mb-12 font-bold text-center animate-on-scroll">Mes services</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div
+          class="bg-card p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2 hover-trigger animate-on-scroll">
+          <i class="fas fa-code text-4xl text-primary mb-4"></i>
+          <h3 class="text-2xl text-heading mb-4 font-semibold">Développement Web Moderne</h3>
+          <p>Création de sites web responsive et performants, utilisant les dernières technologies comme React Js
+            pour une expérience utilisateur optimale.</p>
+        </div>
+        <div
+          class="bg-card p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2 hover-trigger animate-on-scroll">
+          <i class="fas fa-mobile-alt text-4xl text-primary mb-4"></i>
+          <h3 class="text-2xl text-heading mb-4 font-semibold">Applications Web Progressives</h3>
+          <p>Développement d'applications web qui offrent une expérience similaire aux applications natives, avec des
+            fonctionnalités hors ligne et des performances optimales.</p>
+        </div>
+        <div
+          class="bg-card p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2 hover-trigger animate-on-scroll">
+          <i class="fas fa-paint-brush text-4xl text-primary mb-4"></i>
+          <h3 class="text-2xl text-heading mb-4 font-semibold">Interfaces & Expérience Utilisateur</h3>
+          <p>Création d'interfaces utilisateur intuitives et esthétiques, en mettant l'accent sur l'expérience
+            utilisateur pour maximiser l'engagement et la satisfaction des visiteurs.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="py-16">
+      <h2 class="text-4xl text-heading mb-12 font-bold text-center animate-on-scroll">Mes projets récents</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="project-card bg-card p-6 rounded-lg overflow-hidden hover-trigger animate-on-scroll">
+          <div class="relative mb-4 overflow-hidden rounded-lg">
+            <img src="Capture d’écran (43).png" alt="E-commerce Progressive Web App"
+              class="w-full h-48 object-cover transition duration-300 transform hover:scale-110">
+          </div>
+          <h3 class="text-xl text-heading mb-4 font-semibold">Plateforme de suivie des apprenants de l’eig </h3>
+          <p class="mb-4">une plateforme permettant d'archiver et de consulter les parcours académiques des étudiants de
+            l’eig avec des fonctionnalités modernes pour une expérience web et
+            mobile optimale.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-blue-500 text-white text-xs px-2 py-1 rounded-full">Laravel</span>
+            <span class="bg-green-500 text-white text-xs px-2 py-1 rounded-full">Tailwinds CSS</span>
+            <span class="bg-background text-primary px-3 py-1 rounded-full text-sm">MySQL</span>
+            &nbsp;&nbsp;&nbsp;
+            <a href="" class="text-primary hover:underline hidden">Voir le projet <i class="fas fa-arrow-right ml-1"></i></a>
+          </div>
+
+        </div>
+        <div class="project-card bg-card p-6 rounded-lg overflow-hidden hover-trigger animate-on-scroll">
+          <div class="relative mb-4 overflow-hidden rounded-lg">
+            <img src="gp.png" alt="Dashboard Analytics"
+              class="w-full h-48 object-cover transition duration-300 transform hover:scale-110">
+          </div>
+          <h3 class="text-xl text-heading mb-4 font-semibold">Plateforme Grandpublic</h3>
+          <p class="mb-4">Grand Public est une plateforme 100% vidéo qui propose du contenu captivant à travers des portraits, des événements, des débats et des récits insolites, tout en offrant un réseau social intégré pour discuter, échanger des annonces et faire des rencontres.</p>
+
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="bg-blue-500 text-white text-xs px-2 py-1 rounded-full">Laravel </span>
+            <span class="bg-green-500 text-white text-xs px-2 py-1 rounded-full">Tailwinds CSS</span>
+          </div>
+          <a href="https://grandpublic.online/" class="text-primary hover:underline">Voir le projet <i
+              class="fas fa-arrow-right ml-1"></i></a>
+        </div>
+        <div class="project-card bg-card p-6 rounded-lg overflow-hidden hover-trigger animate-on-scroll">
+          <div class="relative mb-4 overflow-hidden rounded-lg">
+            <img src="Capture d'écran 2024-09-22 193918.png" alt="Application de Gestion de Tâches"
+              class="w-full h-48 object-cover transition duration-300 transform hover:scale-110">
+          </div>
+          <h3 class="text-xl text-heading mb-4 font-semibold">Application de Gestion de Tâches (To-Do List)</h3>
+          <p class="mb-4">Une application web intuitive conçue pour permettre aux utilisateurs de suivre et organiser
+            leurs tâches personnelles.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-blue-600 text-white text-xs px-2 py-1 rounded-full">React Js</span>
+            <span class="bg-green-600 text-white text-xs px-2 py-1 rounded-full">Tailwinds CSS</span>
+            <span class="hidden text-white text-xs px-2 py-1 rounded">AWS</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://taskmanager.amouhenoc.com" class="text-primary hover:underline hidden">Voir le projet <i
+                class="fas fa-arrow-right ml-1"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class=" py-16">
+      <h2 class="text-4xl text-heading mb-8 font-bold text-center animate-on-scroll">Données de Contact
+      </h2>
+      <div class="text-heading bg-[var(--card-background)] rounded-lg shadow-md p-8">
+        <div class="grid md:grid-cols-2 gap-8 animate-on-scroll">
+          <div>
+            <h3 class="text-xl font-semibold text-[var(--heading-color)] mb-4">Informations Personnelles</h3>
+            <ul class="space-y-2">
+              <li>
+                <i class="fas fa-user mr-2 text-[var(--primary-color)]"></i>
+                <span class="text-[var(--text-color)]">Amou Hénoc</span>
+              </li>
+              <li>
+                <i class="fas fa-map-marker-alt mr-2 text-[var(--primary-color)]"></i>
+                <span class="text-[var(--text-color)]">Cotonou, Bénin</span>
+              </li>
+              <li>
+                <i class="fas fa-envelope mr-2 text-[var(--primary-color)]"></i>
+                <a href="mailto:enocamou06@gmail.com"
+                  class="text-[var(--text-color)] hover:text-[var(--primary-color)]">henocamou06@gmail.com</a>
+              </li>
+              <li>
+                <i class="fas fa-phone mr-2 text-[var(--primary-color)]"></i>
+                <a href="tel:+22997426594" class="text-[var(--text-color)] hover:text-[var(--primary-color)]">+229
+                  0197426594</a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold text-[var(--heading-color)] mb-4">Réseaux Sociaux</h3>
+            <ul class="space-y-2">
+              <li>
+                <i class="hidden fa-linkedin mr-2 text-[var(--primary-color)]"></i>
+                <a href="https://linkedin.com/in/amouhenoc" target="_blank" rel="noopener noreferrer"
+                  class="hidden text-[var(--text-color)] hover:text-[var(--primary-color)]">linkedin.com/in/amouhenoc</a>
+              </li>
+              <li>
+                <i class="fab fa-github mr-2 text-[var(--primary-color)]"></i>
+                <a href="https://github.com/Hercule229/Amou-H-noc" target="_blank" rel="noopener noreferrer"
+                  class="text-[var(--text-color)] hover:text-[var(--primary-color)]">github.com/Hercule229/Amou-H-noc</a>
+              </li>
+              <li>
+                <i class="fab fa-facebook mr-2 text-[var(--primary-color)]"></i>
+                <a href="https://www.facebook.com/profile.php?id=61559210308587&mibextid=wwXIfr&mibextid=wwXIfr" target="_blank" rel="noopener noreferrer"
+                  class="text-[var(--text-color)] hover:text-[var(--primary-color)]">Hénoc Amou</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-8">
+          <h3 class="text-xl font-semibold text-[var(--heading-color)] mb-4 animate-on-scroll">Disponibilité</h3>
+          <p class="text-[var(--text-color)] animate-on-scroll">Vous avez un projet innovant en tête ? Je suis
+            actuellement disponible
+            pour des projets freelance et des
+            opportunités à temps plein. N'hésitez pas à me contacter pour discuter de votre projet ou de toute
+            opportunité de collaboration.</p>
+        </div>
+    </section>
+  </div>
+
+  <footer class="hidden py-8 bg-card mt-16">
+    <p class="text-text">&copy; 2024 Amou Hénoc. Tous droits réservés.</p>
+    <div class="flex justify-center space-x-4 mt-4">
+      <a href="https://linkedin.com/in/amouhenoc"
+        class="text-text hover:text-primary transition duration-300 hover-trigger"><i
+          class="fab fa-linkedin fa-lg"></i></a>
+      <a href="https://github.com/amouhenoc"
+        class="text-text hover:text-primary transition duration-300 hover-trigger"><i
+          class="fab fa-github fa-lg"></i></a>
+      <a href="https://twitter.com/amouhenoc"
+        class="text-text hover:text-primary transition duration-300 hover-trigger"><i
+          class="fab fa-twitter fa-lg"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+
+    function setTheme(theme) {
+      body.classList.remove('light-mode');
+      if (theme === 'light') {
+        body.classList.add('light-mode');
+      }
+      localStorage.setItem('theme', theme);
+      updateThemeToggleIcon(theme);
+    }
+
+    function updateThemeToggleIcon(theme) {
+      themeToggle.innerHTML = theme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = body.classList.contains('light-mode') ? 'dark' : 'light';
+      setTheme(currentTheme);
+    });
+
+    // Set initial theme
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme);
+
+    function toggleMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenu.classList.toggle('hidden');
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+        if (window.innerWidth < 768) {
+          toggleMenu();
+        }
+      });
+    });
+
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll("nav a");
+
+    window.addEventListener("scroll", () => {
+      let current = "";
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= sectionTop - sectionHeight / 3) {
+          current = section.getAttribute("id");
+        }
+      });
+
+      navLinks.forEach((link) => {
+        link.classList.remove("text-primary");
+        if (link.getAttribute("href").slice(1) === current) {
+          link.classList.add("text-primary");
+        }
+      });
+    });
+
+    gsap.utils.toArray('.animate-on-scroll').forEach((elem) => {
+      gsap.fromTo(elem,
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: elem,
+            start: 'top bottom-=100',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+    });
+
+    const dynamicText = document.getElementById('dynamicText');
+    const phrases = ['Développeur Web', 'En fin de formation'];
+    let currentPhrase = 0;
+
+    function typeWriter(text, i, fnCallback) {
+      if (i < text.length) {
+        dynamicText.innerHTML = text.substring(0, i + 1) + '<span class="text-primary">|</span>';
+        setTimeout(function () {
+          typeWriter(text, i + 1, fnCallback)
+        }, 100);
+      } else if (typeof fnCallback == 'function') {
+        setTimeout(fnCallback, 700);
+      }
+    }
+
+    function startTextAnimation(i) {
+      if (i < phrases.length) {
+        typeWriter(phrases[i], 0, function () {
+          setTimeout(function () {
+            startTextAnimation(i + 1);
+          }, 1000);
+        });
+      } else {
+        setTimeout(function () {
+          startTextAnimation(0);
+        }, 1000);
+      }
+    }
+
+    startTextAnimation(0);
+
+    function updateColors() {
+      document.documentElement.style.setProperty('--primary-color', getComputedStyle(document.documentElement).getPropertyValue('--primary-color'));
+      document.documentElement.style.setProperty('--secondary-color', getComputedStyle(document.documentElement).getPropertyValue('--secondary-color'));
+      document.documentElement.style.setProperty('--background-color', getComputedStyle(document.documentElement).getPropertyValue('--background-color'));
+      document.documentElement.style.setProperty('--card-background', getComputedStyle(document.documentElement).getPropertyValue('--card-background'));
+      document.documentElement.style.setProperty('--text-color', getComputedStyle(document.documentElement).getPropertyValue('--text-color'));
+      document.documentElement.style.setProperty('--heading-color', getComputedStyle(document.documentElement).getPropertyValue('--heading-color'));
+    }
+
+    themeToggle.addEventListener('click', updateColors);
+    updateColors();
+  </script>
+</body>
+
+</html>

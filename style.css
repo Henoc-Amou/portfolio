@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #00abf0;
+    --secondary-color: #64ffda;
+    --background-color: #0a192f;
+    --card-background: #112240;
+    --text-color: #8892b0;
+    --heading-color: #ccd6f6;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.bg-background {
+    background-color: var(--background-color);
+}
+
+.bg-card {
+    background-color: var(--card-background);
+}
+
+.text-heading {
+    color: var(--heading-color);
+}
+
+.text-primary {
+    color: var(--primary-color);
+}
+
+.border-primary {
+    border-color: var(--primary-color);
+}
+
+.text-gradient {
+    background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+.skill-icon,
+.project-card {
+    transition: all 0.3s ease;
+}
+
+.skill-icon:hover,
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 171, 240, 0.2);
+}
+
+.hover-trigger:hover {
+    color: var(--primary-color);
+}
+
+.navbar a.active {
+    color: #00abf0;
+    border-bottom: 2px solid white;
+    text-decoration: unset;
+}
+
+
+
+.navbar {
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(10, 25, 47, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.navbar-hidden {
+    transform: translateY(-100%);
+}
+
+.navbar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+.nav-link {
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.animate-on-scroll.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
